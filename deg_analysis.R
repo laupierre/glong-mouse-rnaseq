@@ -67,7 +67,7 @@ res <- res[order (res$padj), ]
 
 # Sanity check
 res[res$gene_name == "Snca", ] 
-write.xlsx (res, "GLONG_15monhs_vs_WT_2023.xlsx", rowNames=F)
+write.xlsx (res, "GLONG_15months_vs_WT_2023.xlsx", rowNames=F)
 
 
 
