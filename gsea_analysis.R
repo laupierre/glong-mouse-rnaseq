@@ -10,7 +10,8 @@ library (fgsea)
 pathways <- msigdbr("mouse", category="C2", subcategory = "CP:REACTOME")
 pathways <- split (as.character (pathways$ensembl_gene), pathways$gs_name)
 
-# 3 months
+
+# 3 months GLONG mouse
 res <- read.xlsx ("GLONG_3months_vs_WT_2023.xlsx")
 
 res <- res[order (res$log2FoldChange), ]
