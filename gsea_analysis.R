@@ -71,6 +71,13 @@ write.xlsx (fgseaRes, outfile, rowNames=F)
 res <- read.xlsx ("GLONG_3months_vs_WT_2023.xlsx")
 mygsea (res, "gsea_reactome_3months_glong_vs_WT.xlsx")
 
+# 15 months GLONG mouse
+res <- read.xlsx ("GLONG_15months_vs_WT_2023.xlsx")
+mygsea (res, "gsea_reactome_15months_glong_vs_WT.xlsx")
+
+# 15 months vs 3 months GLONG mouse
+res <- read.xlsx ("GLONG_15months_vs_GLONG_3months_2023")
+mygsea (res, "gsea_reactome_15months_vs_3months_glong.xlsx")
 
 
 
