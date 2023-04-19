@@ -42,8 +42,17 @@ plotEnrichment(pathways[[topPathwaysUp[[1]] ]], ranks) + ggtitle( topPathwaysUp[
 plotEnrichment(pathways[[topPathwaysDown[[1]] ]], ranks) + ggtitle( topPathwaysDown[[1]] )
 
 
+# make leading edge more human-readable
+library (org.Mm.eg.db)
+
+fgseaRes[ , leadingEdge := mapIdsList(x=org.Mm.eg.db, 
+                                      keys=leadingEdge,
+                                      keytype="ENSEMBL", 
+                                      column="SYMBOL")]
+
+
 # save fgsea results in a file
-fgseaRes <- fgseaRes[ ,c(1:6)]
+fgseaRes <- fgseaRes[ ,c(1:6,8)]
 fgseaRes <- data.frame (fgseaRes[order (fgseaRes$padj), ])
 fgseaRes <- fgseaRes[order (fgseaRes$padj), ]
 fgseaRes <- fgseaRes[ ,-4]
