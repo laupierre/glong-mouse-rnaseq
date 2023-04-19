@@ -62,6 +62,6 @@ head (fgseaRes)
 # In 8, we define the leading-edge subset to be those genes in the gene set S  
 # that appear in the ranked list L at, or before, the point where the running sum reaches its maximum deviation from zero.
 
-write.xlsx (fgseaRes, "gsea_pathways_3months_glong_vs_WT.xlsx", sep="") , rowNames=F)
+write.xlsx (fgseaRes, "gsea_pathways_3months_glong_vs_WT.xlsx", rowNames=F)
 
 
