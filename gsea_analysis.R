@@ -18,6 +18,7 @@ pathways <- split (as.character (pathways$ensembl_gene), pathways$gs_name)
 # 3 months GLONG mouse
 res <- read.xlsx ("GLONG_3months_vs_WT_2023.xlsx")
 
+# ranks are from lowest to highest
 res <- res[order (res$log2FoldChange), ]
 ranks <- res$log2FoldChange
 names (ranks) <- gsub ("\\..*", "", res$Geneid)
