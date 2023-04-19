@@ -15,8 +15,7 @@ pathways <- msigdbr("mouse", category="C2", subcategory = "CP:REACTOME")
 pathways <- split (as.character (pathways$ensembl_gene), pathways$gs_name)
 
 
-# 3 months GLONG mouse
-res <- read.xlsx ("GLONG_3months_vs_WT_2023.xlsx")
+mygsea <- function (res, outfile) {
 
 # ranks are from lowest to highest
 res <- res[order (res$log2FoldChange), ]
@@ -64,6 +63,17 @@ head (fgseaRes)
 
 # Positive NES usually correspond to up-regulated gene sets and negative NES to down-regulated ones
 
-write.xlsx (fgseaRes, "gsea_pathways_3months_glong_vs_WT.xlsx", rowNames=F)
+write.xlsx (fgseaRes, outfile, rowNames=F)
+}
+
+
+# 3 months GLONG mouse
+res <- read.xlsx ("GLONG_3months_vs_WT_2023.xlsx")
+my_gsea (res, "gsea_reactome_3months_glong_vs_WT.xlsx")
+
+
+
+
+
 
 
