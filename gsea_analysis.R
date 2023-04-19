@@ -6,6 +6,9 @@ library (fgsea)
 # in contrast to taking only significantly differentially expressed genes. 
 
 
+
+mygsea <- function (res, outfile) {
+
 ## BP from GO
 #pathways <- msigdbr("mouse", category="C5", subcategory = "GO:BP")
 #pathways <- split (as.character (pathways$ensembl_gene), pathways$gs_name)
@@ -13,9 +16,6 @@ library (fgsea)
 # Reactome
 pathways <- msigdbr("mouse", category="C2", subcategory = "CP:REACTOME")
 pathways <- split (as.character (pathways$ensembl_gene), pathways$gs_name)
-
-
-mygsea <- function (res, outfile) {
 
 # ranks are from lowest to highest
 res <- res[order (res$log2FoldChange), ]
