@@ -2,8 +2,12 @@ library(msigdbr)
 library (openxlsx)
 library (fgsea)
 
-# BP from GO
-pathways <- msigdbr("mouse", category="C5", subcategory = "GO:BP")
+## BP from GO
+#pathways <- msigdbr("mouse", category="C5", subcategory = "GO:BP")
+#pathways <- split (as.character (pathways$ensembl_gene), pathways$gs_name)
+
+# Reactome
+pathways <- msigdbr("mouse", category="C2", subcategory = "CP:REACTOME")
 pathways <- split (as.character (pathways$ensembl_gene), pathways$gs_name)
 
 # 3 months
@@ -18,6 +22,21 @@ fgseaRes <- fgsea(pathways = pathways,
                   minSize  = 10,
                   maxSize  = 500)
   
+# see 20 pathways ordered by pval  
+topPathwaysUp <- fgseaRes[ES > 0][head(order(pval), n=10), pathway]
+topPathwaysDown <- fgseaRes[ES < 0][head(order(pval), n=10), pathway]
+topPathways <- c(topPathwaysUp, rev(topPathwaysDown))
+plotGseaTable(pathways[topPathways], ranks, fgseaRes, gseaParam=0.5)
+
+
+# Enrichment plot of a specific top pathway (up and down)
+library (ggplot2)
+plotEnrichment(pathways[[topPathwaysUp[[1]] ]], ranks) + ggtitle( topPathwaysUp[[1]] )
+
+plotEnrichment(pathways[[topPathwaysDown[[1]] ]], ranks) + ggtitle( topPathwaysDown[[1]] )
+
+
+# save fgsea results in a file
 fgseaRes <- fgseaRes[ ,c(1:6)]
 fgseaRes <- data.frame (fgseaRes[order (fgseaRes$padj), ])
 fgseaRes <- fgseaRes[order (fgseaRes$padj), ]
@@ -29,4 +48,5 @@ head (fgseaRes)
 # that appear in the ranked list L at, or before, the point where the running sum reaches its maximum deviation from zero.
 
 write.xlsx (fgseaRes, "gsea_pathways_3months_glong_vs_WT.xlsx", sep="") , rowNames=F)
+
 
