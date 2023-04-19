@@ -2,6 +2,10 @@ library(msigdbr)
 library (openxlsx)
 library (fgsea)
 
+# The Gene Set Enrichment Analysis (GSEA) differs from Gene Ontology enrichment analysis in that it considers all genes  
+# in contrast to taking only significantly differentially expressed genes. 
+
+
 ## BP from GO
 #pathways <- msigdbr("mouse", category="C5", subcategory = "GO:BP")
 #pathways <- split (as.character (pathways$ensembl_gene), pathways$gs_name)
