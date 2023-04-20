@@ -91,7 +91,7 @@ my_gprof (res, "GLONG_15months_vs_WT_2023_goa_up_genes.xlsx", "GLONG_15months_vs
 
 # 3 vs 15 months GLONG mouse
 res <- read.xlsx ("GLONG_15months_vs_GLONG_3months_2023.xlsx")
-my_gprof (res, "GLONG_15months_vs_WT_2023_goa_up_genes.xlsx", "GLONG_15months_vs_WT_2023_goa_down_genes.xlsx")
+my_gprof (res, "GLONG_15months_vs_GLONG_3months_2023_goa_up_genes.xlsx", "GLONG_15months_vs_GLONG_3months_2023_goa_down_genes.xlsx")
 
 
 
