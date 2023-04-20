@@ -74,7 +74,7 @@ gp_down$result$genes_intersection[i] <- a
 gp_down <- gp_down$result[ ,-15]
 gp_down <- gp_down[ ,-15]
 # collect the results
-gp_down <- gp_down[ ,c("term_id", "term_name", "p_value", "significant", "parents", "intersection_size", "genes_intersection")]
+gp_down <- gp_down[ ,c("term_id", "term_name", "p_value", "significant", "intersection_size", "genes_intersection")]
 head(gp_down)
 write.xlsx (gp_down, outfile_down, rowNames=F)
 }
@@ -83,6 +83,16 @@ write.xlsx (gp_down, outfile_down, rowNames=F)
 # 3 months GLONG mouse
 res <- read.xlsx ("GLONG_3months_vs_WT_2023.xlsx")
 my_gprof (res, "GLONG_3months_vs_WT_2023_goa_up_genes.xlsx", "GLONG_3months_vs_WT_2023_goa_down_genes.xlsx")
+
+
+# 15 months GLONG mouse
+res <- read.xlsx ("GLONG_15months_vs_WT_2023.xlsx")
+my_gprof (res, "GLONG_15months_vs_WT_2023_goa_up_genes.xlsx", "GLONG_15months_vs_WT_2023_goa_down_genes.xlsx")
+
+# 3 vs 15 months GLONG mouse
+res <- read.xlsx ("GLONG_15months_vs_GLONG_3months_2023.xlsx")
+my_gprof (res, "GLONG_15months_vs_WT_2023_goa_up_genes.xlsx", "GLONG_15months_vs_WT_2023_goa_down_genes.xlsx")
+
 
 
 
