@@ -1,6 +1,6 @@
 library (openxlsx)
 library (gprofiler2)
-
+library (org.Mm.eg.db)
 
 ## The enrichment analysis takes only the enrichment of significantly differentially expressed genes
 
@@ -34,11 +34,22 @@ genes.down <- gsub ("\\..*", "", down_ordered$Geneid)
 gp_up <- gost(query = genes.up, organism = "mmusculus", ordered_query = TRUE, significant= TRUE, numeric_ns = "ENTREZGENE_ACC", sources = c("GO:BP"), 
               exclude_iea=TRUE, evcodes = TRUE, correction_method = "gSCS", custom_bg = all_genes)
               
+# Make more human readable
+gp_up$result$genes_intersection <- ""
+
+for (i in (1:dim (gp_up$result)[1])) {
+
+k <- gp_up$result$intersection [i]
+k <- unlist (strsplit (k, split=","))
+a <- paste (sort (unique (mapIds(org.Mm.eg.db, keys=k, column=c("SYMBOL"), keytype="ENSEMBL"))), collapse=",")
+gp_up$result$genes_intersection[i] <- a
+}
+
 # remove the evcodes and the intersections
 gp_up <- gp_up$result[ ,-15]
 gp_up <- gp_up[ ,-15]
 # collect the results
-gp_up <- gp_up[ ,c("term_id", "term_name", "p_value", "significant", "intersection_size", "term_size")]
+gp_up <- gp_up[ ,c("term_id", "term_name", "p_value", "significant", "intersection_size", "genes_intersection")]
 head(gp_up)
 write.xlsx (gp_up, "GLONG_3months_vs_WT_2023_goa_up_genes.xlsx", rowNames=F)
 
@@ -47,12 +58,23 @@ write.xlsx (gp_up, "GLONG_3months_vs_WT_2023_goa_up_genes.xlsx", rowNames=F)
 ## Down analysis
 gp_down <- gost(query = genes.down, organism = "mmusculus", ordered_query = TRUE, significant= TRUE, numeric_ns = "ENTREZGENE_ACC", sources = c("GO:BP"), 
               exclude_iea=TRUE, evcodes = TRUE, correction_method = "gSCS", custom_bg = all_genes)
-              
+
+# Make more human readable
+gp_down$result$genes_intersection <- ""
+
+for (i in (1:dim (gp_down$result)[1])) {
+
+k <- gp_down$result$intersection [i]
+k <- unlist (strsplit (k, split=","))
+a <- paste (sort (unique (mapIds(org.Mm.eg.db, keys=k, column=c("SYMBOL"), keytype="ENSEMBL"))), collapse=",")
+gp_down$result$genes_intersection[i] <- a
+}
+
 # remove the evcodes and the intersections
 gp_down <- gp_down$result[ ,-15]
 gp_down <- gp_down[ ,-15]
 # collect the results
-gp_down <- gp_down[ ,c("term_id", "term_name", "p_value", "significant", "intersection_size", "term_size")]
+gp_down <- gp_down[ ,c("term_id", "term_name", "p_value", "significant", "parents", "intersection_size", "genes_intersection")]
 head(gp_down)
 write.xlsx (gp_down, "GLONG_3months_vs_WT_2023_goa_down_genes.xlsx", rowNames=F)
 
