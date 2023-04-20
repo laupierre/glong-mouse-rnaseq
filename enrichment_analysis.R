@@ -4,8 +4,8 @@ library (org.Mm.eg.db)
 
 ## The enrichment analysis takes only the enrichment of significantly differentially expressed genes
 
-# 3 months GLONG mouse
-res <- read.xlsx ("GLONG_3months_vs_WT_2023.xlsx")
+
+my_gprof <- function (res, outfile_up, outfile_down) {
 
 # Take all expressed genes for the background
 all_genes <- gsub ("\\..*", "", res$Geneid)
@@ -51,7 +51,7 @@ gp_up <- gp_up[ ,-15]
 # collect the results
 gp_up <- gp_up[ ,c("term_id", "term_name", "p_value", "significant", "intersection_size", "genes_intersection")]
 head(gp_up)
-write.xlsx (gp_up, "GLONG_3months_vs_WT_2023_goa_up_genes.xlsx", rowNames=F)
+write.xlsx (gp_up, outfile_up, rowNames=F)
 
 
 
@@ -76,8 +76,13 @@ gp_down <- gp_down[ ,-15]
 # collect the results
 gp_down <- gp_down[ ,c("term_id", "term_name", "p_value", "significant", "parents", "intersection_size", "genes_intersection")]
 head(gp_down)
-write.xlsx (gp_down, "GLONG_3months_vs_WT_2023_goa_down_genes.xlsx", rowNames=F)
+write.xlsx (gp_down, outfile_down, rowNames=F)
+}
 
+
+# 3 months GLONG mouse
+res <- read.xlsx ("GLONG_3months_vs_WT_2023.xlsx")
+my_gprof (res, "GLONG_3months_vs_WT_2023_goa_up_genes.xlsx", "GLONG_3months_vs_WT_2023_goa_down_genes.xlsx")
 
 
 
