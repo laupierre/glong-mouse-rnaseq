@@ -107,8 +107,8 @@ ggsave ("PCA plot.pdf")
 df <- as.data.frame(colData(dds)[,c("condition","sample")])
 df$sample <- gsub ("_SND", "", df$sample)
 
-# Th, DDC, NR4A2, SLC6A3
-select <- c("ENSMUSG00000000214.12", "ENSMUSG00000020182.17", "ENSMUSG00000026826.14", "ENSMUSG00000021609.7", "ENSMUSG00000025889.14")
+# Th, DDC, NR4A2, SLC6A3, Hmgn2, Pafah1b2, Srp54A
+select <- c("ENSMUSG00000000214.12", "ENSMUSG00000020182.17", "ENSMUSG00000026826.14", "ENSMUSG00000021609.7", "ENSMUSG00000025889.14", "ENSMUSG00000003038.16", "ENSMUSG00000003131.8", "ENSMUSG00000073079.7")
 
 pdf ("Heatmap plot.pdf")
 pheatmap(log2 (counts(dds,normalized=TRUE)+1) [row.names (counts(dds)) %in% select,], cluster_rows=FALSE, show_rownames=TRUE, cluster_cols=FALSE, annotation_col=df)
