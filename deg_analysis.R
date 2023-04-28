@@ -61,6 +61,7 @@ dds <- DESeq(dds)
 res <- results(dds, contrast=c("condition", "GL15", "WT"))
 
 res <- merge (data.frame (res), counts (dds), by="row.names")
+#res <- merge (data.frame (res), round (counts (dds, normalized=TRUE)), by="row.names")
 res <- merge (res, annot, by.x="Row.names", by.y="Geneid")
 colnames (res)[1] <- "Geneid"
 res <- res[order (res$padj), ]
@@ -76,6 +77,7 @@ write.xlsx (res, "GLONG_15months_vs_WT_2023.xlsx", rowNames=F)
 res <- results(dds, contrast=c("condition", "GL3", "WT"))
 
 res <- merge (data.frame (res), counts (dds), by="row.names")
+#res <- merge (data.frame (res), round (counts (dds, normalized=TRUE)), by="row.names")
 res <- merge (res, annot, by.x="Row.names", by.y="Geneid")
 colnames (res)[1] <- "Geneid"
 res <- res[order (res$padj), ]
