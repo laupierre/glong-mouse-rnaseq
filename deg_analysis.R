@@ -117,6 +117,24 @@ pheatmap(log2 (counts(dds,normalized=TRUE)+1) [row.names (counts(dds)) %in% sele
 dev.off ()
 
 
+
+## Sample to sample correlation, see https://rockefelleruniversity.github.io/RU_RNAseq/presentations/singlepage/RU_RNAseq_p3.html
+
+sampleDists <- as.dist(1 - cor(log2 (counts(dds,normalized=TRUE)+1), method="pearson"))
+sampleDistMatrix <- as.matrix(sampleDists)
+
+library(RColorBrewer)
+blueColours <- brewer.pal(9, "Blues")
+colors <- colorRampPalette(rev(blueColours))(255)
+
+df <- as.data.frame(colData(dds)[,c("condition","sample")])
+
+pdf ("Distance between samples plot.pdf")
+pheatmap(sampleDistMatrix, clustering_distance_rows = sampleDists, clustering_distance_cols = sampleDists, color = colors, annotation_row=df)
+dev.off()
+
+
+
 ## GL15 vs GL3
 
 res <- results(dds, contrast=c("condition", "GL15", "GL3"))
