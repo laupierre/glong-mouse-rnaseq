@@ -8,8 +8,8 @@ mco <- mco [order (mco$`padj-3months-2022`), ]
 colnames (mco)[colnames (mco) == "stats"] <- "stats-GLONGvsOLA"
 colnames (mco)[colnames (mco) == "trend"] <- "trend-GLONGvsOLA"
 
-mco$overall_stats <- ifelse (mco$`stats-GLONGvsOLA` < 0.05 & mco$`stats-WTvsGLONG` < 0.05, "Yes", "No")
-mco$overall_trend <- ifelse (mco$`trend-GLONGvsOLA` > 0 & mco$`trend-WTvsGLONG` > 0, "Up", "No")
-mco$overall_trend [mco$`trend-GLONGvsOLA` < 0 & mco$`trend-WTvsGLONG` < 0] <- "Down"
+mco$overall_stats <- ifelse (mco$`stats-GLONGvsOLA` == "Yes" & mco$`stats-WTvsGLONG` == "Yes", "Yes", "No")
+mco$overall_trend <- ifelse (mco$`trend-GLONGvsOLA` == "Up" & mco$`trend-WTvsGLONG` == "Up", "Up", "No")
+mco$overall_trend [mco$`trend-GLONGvsOLA` == "Down" & mco$`trend-WTvsGLONG` == "Down"] <- "Down"
 
 write.xlsx (mco, "Comparison of GLONG vs OLA vs WT at each time point.xlsx", rowNames=F)
